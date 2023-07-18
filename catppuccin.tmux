@@ -115,7 +115,12 @@ main() {
   local date_time
   date_time="$(get_tmux_option "@catppuccin_date_time" "off")"
   readonly date_time
- 
+
+  # Attempt at adding weather
+  local weather_status
+  weather_status="$(get_tmux_option "@catppuccin_weather_status" "off")"
+  readonly weather_status
+
   # Icons
   local directory_icon
   directory_icon="$(get_tmux_option "@catppuccin_directory_icon" "")"
@@ -140,6 +145,10 @@ main() {
   local datetime_icon
   datetime_icon="$(get_tmux_option "@catppuccin_datetime_icon" "")"
   readonly datetime_icon
+
+  local weather_icon
+  weather_icon="$(get_tmux_option "@catppuccin_weather_icon" "󰖐")"
+  readonly weather_icon
 
   # Source status line themes
   if [[ "${pill_theme_enabled}" == "off" ]] &&
@@ -193,6 +202,10 @@ main() {
 
   if [[ "${date_time}" != "off" ]]; then
     right_column2="$right_column2$show_date_time"
+  fi
+
+  if [[ "${weather_status}" == "on" ]]; then
+    right_column2="$right_column2$show_weather_status"
   fi
 
   set status-left ""
